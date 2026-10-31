@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Job match board</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{--bg:#f2f5f7;--sf:#fff;--ink:#16232d;--mut:#5b6b77;--ln:#d5dde3;--ac:#0e6a8a;--hi:#1d7a4c;--md:#a56a0c;--lo:#a23a3a;--bar:#dfe7ec;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10181e;--sf:#18232b;--ink:#e6edf1;--mut:#9aabb6;--ln:#2b3a45;--ac:#5cb8d6;--hi:#58c08a;--md:#e0a94a;--lo:#e07b7b;--bar:#2b3a45;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10181e;--sf:#18232b;--ink:#e6edf1;--mut:#9aabb6;--ln:#2b3a45;--ac:#5cb8d6;--hi:#58c08a;--md:#e0a94a;--lo:#e07b7b;--bar:#2b3a45;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 "Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1280px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:-.01em}.sub{color:var(--mut);margin:0 0 16px;max-width:70ch}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+button,select,input,textarea{font:inherit;color:var(--ink);background:var(--sf);border:1px solid var(--ln);border-radius:6px;padding:7px 10px}
+button{cursor:pointer;font-weight:700}button.p{background:var(--ac);border-color:var(--ac);color:var(--bg)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+input[type=search]{flex:1;min-width:180px}
+details{background:var(--sf);border:1px solid var(--ln);border-radius:8px;padding:10px 14px;margin-bottom:12px}
+summary{cursor:pointer;font-weight:700}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+label{display:flex;flex-direction:column;gap:3px;font-size:.85rem;color:var(--mut)}label input,label select,label textarea{color:var(--ink)}
+textarea{width:100%;min-height:90px;resize:vertical}.w2{grid-column:1/-1}
+.tw{overflow-x:auto;background:var(--sf);border:1px solid var(--ln);border-radius:8px}
+table{border-collapse:collapse;width:100%;min-width:1100px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--ln);text-align:left;vertical-align:top}
+th{font-size:.82rem;color:var(--mut);white-space:nowrap;cursor:pointer;user-select:none}th[aria-sort]{color:var(--ink)}
+tbody tr:last-child td{border-bottom:0}td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.sc{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.15rem;min-width:92px}
+.m{flex:1;height:6px;background:var(--bar);border-radius:3px;overflow:hidden;min-width:34px}.m i{display:block;height:100%}
+.hi{color:var(--hi)}.md{color:var(--md)}.lo{color:var(--lo)}
+a{color:var(--ac);font-weight:700}.kw{color:var(--mut);font-size:.85rem;max-width:230px}.cf{color:var(--mut);font-size:.8rem}
+.empty{padding:30px 16px;text-align:center;color:var(--mut)}.note{color:var(--mut);font-size:.85rem;margin-top:12px;max-width:90ch}
+</style></head><body><main>
+<h1>Job match board</h1>
+<p class="sub">Each posting is scored on remote status, company size, industry, function fit and how well your resume matches its wording. Add postings by hand or load the agent’s weekly CSV.</p>
+<div class="bar">
+<input type="search" id="q" placeholder="Filter by title, company or industry" aria-label="Filter">
+<select id="fm" aria-label="Work mode"><option value="">Any mode</option><option>remote</option><option>hybrid</option><option>onsite</option><option>unknown</option></select>
+<button class="p" id="add">Add posting</button>
+<button id="csv">Load agent CSV</button><input type="file" id="file" accept=".csv" hidden>
+<button id="exp">Export CSV</button>
+<button class="p" id="runb">Run agent in browser</button> <span id="rs2" class="cf" role="status"></span>
+<button class="p" id="run">Run agent now</button><span id="rmsg" class="cf" role="status"></span>
+</div>
+<details id="post"><summary>Add a posting</summary><div class="g">
+<label>Job title<input id="t"></label><label>Company<input id="c"></label>
+<label>Link to posting<input id="u" type="url" placeholder="https://"></label><label>Location<input id="l"></label>
+<label>Posted<input id="d" type="date"></label><label>Employees (approx.)<input id="e" type="number" min="1"></label>
+<label>Industry<input id="i" list="ind"></label><label>Salary (optional)<input id="s" placeholder="$120,000-$150,000"></label>
+<label>Work mode<select id="m"><option value="">Auto-detect</option><option>remote</option><option>hybrid</option><option>onsite</option></select></label>
+<label class="w2">Posting text (paste the full description for an accurate resume match)<textarea id="x"></textarea></label>
+<div class="w2"><button class="p" id="save">Score and add</button> <span id="msg" class="cf" role="status"></span></div></div></details>
+<details><summary>Scoring settings and resume</summary><div class="g">
+<label>Remote weight<input id="wr" type="number" min="0" value="30"></label><label>Company size weight<input id="ws" type="number" min="0" value="25"></label>
+<label>Industry weight<input id="wi" type="number" min="0" value="20"></label><label>Resume match weight<input id="wf" type="number" min="0" value="25"></label><label>Function fit weight<input id="wn" type="number" min="0" value="15"></label>
+<label>Company size<select id="sp"><option value="large">Larger scores higher</option><option value="small">Smaller scores higher</option></select></label>
+<label>Show postings from last (days, 0 = all)<input id="age" type="number" min="0" value="30"></label>
+<label>Years of experience<input id="yrs" type="number" min="1" value="18"></label>
+<label>Has direct reports<select id="dr"><option value="0">No (team lead)</option><option value="1">Yes</option></select></label>
+<label class="w2">Company boards to check (one per line: greenhouse, lever or ashby, then the board name, then the company name; for example “greenhouse, acme, Acme Inc”)<textarea id="bd"></textarea></label><label class="w2">Search terms (one per line)<textarea id="tm"></textarea></label><label>Adzuna app ID<input id="az1"></label><label>Adzuna app key<input id="az2" type="password"></label>
+<label class="w2">Hide these companies (one pattern per line)<textarea id="ex"></textarea></label>
+<label class="w2">Industry scores (JSON, 0 to 1)<textarea id="af"></textarea></label>
+<label class="w2">Resume text used for matching<textarea id="rs" style="min-height:160px"></textarea></label>
+<div class="w2"><button class="p" id="apply">Apply settings</button> <button id="reset">Reset to defaults</button></div></div></details>
+<div class="tw"><table><thead><tr id="hd"></tr></thead><tbody id="tb"></tbody></table><div class="empty" id="em" hidden>No postings match. Add one or load the agent’s CSV.</div></div>
+<p class="note">Resume match is a keyword check, not any employer’s actual screening software. “Keywords to add” lists terms the posting uses that your resume lacks; add them only where they are true. “Low” confidence means the posting text was short or missing, so open the link and check. Run agent only works from a copy opened on your computer, because this hosted page can’t reach job sites. Data stays in this browser.</p>
+<datalist id="ind"></datalist>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const LEX=[["sql","\\bsql\\b",3],["python","\\bpython\\b",2],["tableau","tableau",2],["power bi","power\\s?bi",2],["looker","looker",1],["excel","\\bexcel\\b",1],["dbt","\\bdbt\\b",1],["snowflake","snowflake",2],["databricks","databricks",1],["bigquery","bigquery",1],["aws","\\baws\\b",1],["sas","\\bsas\\b",1],["airflow/etl","airflow|\\betl\\b|fivetran|matillion",1],["data modeling","data model",2],["ai/ml","\\bai\\b|artificial intelligence|machine learning|genai|generative ai",2],["experimentation","a/b test|experimentation",1],["forecasting","forecast",2],["predictive","predictive|prescriptive",1],["statistical analysis","statistic",2],["kpi","\\bkpis?\\b|key performance",2],["dashboards","dashboard",2],["reporting","reporting",1],["business intelligence","\\bbi\\b|business intelligence",2],["data governance","data governance|data quality",1],["self-service","self-service",1],["revenue analytics","revenue analytic|revenue operations|revops",2],["sales analytics","sales analytic|sales operations|go-to-market|\\bgtm\\b|commercial",2],["supply chain","supply chain|logistics",2],["process improvement","process improvement|continuous improvement|six sigma|\\blean\\b",2],["automation","automat",1],["fp&a","fp&a|financial planning|budget|\\bp&l\\b",2],["pricing","pricing",1],["strategy","strategy|strategic",1],["executive","executive|c-suite|senior leadership",1],["stakeholder","stakeholder",2],["cross-functional","cross-functional",2],["change management","change management",2],["training","training|enablement",1],["mentoring","mentor|coach",1],["team leadership","team lead|people leadership|people management|direct reports|manage a team|lead a team",2],["program management","program manage",3],["project management","project manage",3],["pmo","\\bpmo\\b|portfolio manage",2],["pmp","\\bpmp\\b",2],["agile","agile|scrum",2],["roadmap","roadmap",1],["risk management","risk (?:management|mitigation)",1],["jira/confluence","jira|confluence",1],["vendor management","vendor|supplier",1],["customer success","customer success",1],["voter data / political","voter file|ngp van|votebuilder|voter|political|polling|electoral|targeting",2],["campaign","\\bcampaign",1]].map(([k,r,w])=>[k,new RegExp(r,"i"),w]);
+const FUNCS={analytics:/analytic|insight|business intelligence|\bbi\b|data science|decision science|reporting|measurement|data director|data (?:and|&) (?:targeting|strategy)|research director|polling/i,"business operations":/business operations|biz ?ops|strategy (?:and|&) operations|operations (?:strategy|excellence|analytics)|revenue operations|sales operations|commercial operations|supply chain analytics/i,finance:/fp&a|financial planning|finance|financial analy/i,"project/program":/program manage|project manage|\bpmo\b|program director|project director|transformation/i};
+const FIT={analytics:1,"business operations":.85,"project/program":.85,finance:.45};
+const LEAD=/direct reports|people (?:management|leadership)|manage(?:s|d)? (?:a )?team|performance management|hire and develop|coach and develop/i;
+const INFER={"airlines & travel":/airline|aviation|travel|hospitality/i,"logistics & supply chain":/logistic|supply chain|freight|shipping/i,"retail & e-commerce":/retail|e-?commerce|merchandis/i,"enterprise software & saas":/saas|enterprise software|cloud platform/i,"financial services":/\bbank|insurance|fintech|financial services/i,healthcare:/health|hospital|pharma|clinical/i,"politics & political consulting":/political|voter|electoral|congressional|\bgotv\b|ngp van|public affairs/i,"staffing & recruiting":/staffing|recruit|talent solutions/i};
+const DEF={w:{r:30,s:25,i:20,f:25,n:15},sp:"large",age:30,yrs:18,dr:"0",bd:"",az1:"",az2:"",tm:"director analytics\nsenior manager analytics\nbusiness operations manager\ndirector business operations\nprogram manager\ndirector program management\nFP&A manager\ndata director\ncampaign data director\nrevenue operations\nsupply chain analytics manager",ex:"home\\s?depot|\\bthd\\b|hd supply\ncoca[- ]cola\ndelta air\\s?lines|delta airlines\n\\bups\\b|united parcel service\nequifax\nsouthern company",
+af:{"default":.5,"politics & political consulting":1,"airlines & travel":.8,"logistics & supply chain":.7,"enterprise software & saas":.7,"retail & e-commerce":.6,"financial services":.5,healthcare:.4,"staffing & recruiting":.1},
+rs:"Analytics and program management leader with 18+ years turning complex data into decisions for senior and C-suite leadership across airline, supply chain, enterprise software and market research. Builds the models, dashboards and processes that scale, including a Profit Analysis Tracker and Tableau dashboards used across Corporate Sales; leads change management, training and cross-functional delivery. Hands-on team lead across multiple roles, from a global sampling team of seven to cross-functional dashboard programs and working groups. SQL (BigQuery), Tableau, Python, dbt and statistical analysis. M.B.A. Fluent in English, German and Spanish.\nAnalytics: Business Analytics, Data Modeling, Statistical Analysis, KPI and Performance Reporting, Dashboard Development, Revenue and Sales Analytics, Supply Chain Analytics, Executive Reporting. Operations and Program Management: Program Management, Project Management, Change Management, Process Improvement and Automation, Stakeholder Management, Team Leadership, Cross-Functional Leadership, Mentoring, Training and Enablement, Customer Success Operations.\nAI-assisted interactive dashboard modeling supply chain constraints with forward-looking data model estimates; advanced BigQuery SQL. Administered NGP VAN: campaign and voter reports; dbt and GitHub data models for weekly campaign activity reporting. Delta Corporate Sales Tableau dashboards and Profit Analysis Tracker; statistical analysis of network coverage; trained 150+ sellers. Turbulence injury analysis for C-suite reports. Excel automation of reports. Item Validation Tool error reduction; monthly bug reporting.\nSQL (Google BigQuery, Teradata, DB2, DBeaver), Python, R, SAS, dbt, Tableau, Looker, Excel, Adobe Analytics, Qualtrics. AWS S3, Git/GitHub, Jira, Confluence, NGP VAN, Microsoft Office."};
+const SEED=[{title:"Director, GTM Operations Analytics and Insights",company:"Equinix",url:"https://revopscareers.com/job/equinix-director-gtm-operations-analytics-and-insights-united-states/",location:"United States",posted:"2026-10-07",employees:13000,industry:"technology infrastructure",salary:"",mode:"hybrid",text:"Director, GTM Operations Analytics and Insights. Analyze complex business problems using data, interpret trends, define analytics strategy. Set the strategy and direction for GTM analytics, insights, and reporting; strategic partner to senior executives across Sales, Marketing, Customer Success, Finance, and IT. Track record of leading and scaling an analytics function. Hands-on fluency with BI/data tools and CRM platforms; forecasting models and predictive/prescriptive analytics for executives; executive-grade communication. 15+ years in analytics, GTM/revenue operations, or BI, including senior leadership experience. Bachelor's degree required; MBA preferred. Deep knowledge of Sales, Marketing, and Customer Success data. SQL, Tableau, Power BI. Influence C-suite audiences."}];
+let S,R,sortK="score",sortD=-1;
+const ld=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}};
+const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+S=Object.assign({},DEF,ld("jmb_s",{}));S.w=Object.assign({},DEF.w,S.w);R=ld("jmb_r",SEED);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const terms=t=>new Set(LEX.filter(([k,r])=>r.test(t)).map(x=>x[0]));
+function fn(t){for(const k in FUNCS)if(FUNCS[k].test(t))return k;return"analytics"}
+function lvl(t){t=t.toLowerCase();return/director|head of/.test(t)?"Director":/senior manager|sr\.? manager/.test(t)?"Senior Manager":"Manager"}
+function mode(r){if(["remote","hybrid","onsite"].includes(r.mode))return r.mode;const l=(r.title+" "+r.location).toLowerCase(),b=l+" "+(r.text||"").toLowerCase().slice(0,2500);
+if(l.includes("hybrid"))return"hybrid";if(l.includes("remote"))return"remote";if(/fully remote|100% remote|remote[- ]first|work from anywhere/.test(b))return"remote";if(b.includes("hybrid"))return"hybrid";if(/on-?site|in[- ]office/.test(b))return"onsite";return"unknown"}
+function rem(m,l){const a=/atlanta|, ga\b|georgia|alpharetta|decatur/i.test(l);return{remote:1,hybrid:a?.7:.45,onsite:a?.4:.15,unknown:.3}[m]}
+function siz(n){if(!n)return .7;const s=n>=1e4?1:n>=5e3?.85:n>=1e3?.65:n>=200?.4:.2;return S.sp==="large"?s:Math.round((1.15-s)*100)/100}
+function ats(r,f,rt){const t=(r.title+" "+(r.text||"")).toLowerCase(),words=t.split(/\s+/).length,jt=terms(t),tot=[...jt].reduce((a,k)=>a+LEX.find(x=>x[0]===k)[2],0);
+const cov=tot?[...jt].filter(k=>rt.has(k)).reduce((a,k)=>a+LEX.find(x=>x[0]===k)[2],0)/tot:.6;
+const ys=[...t.matchAll(/(\d{1,2})\s*\+?\s*(?:-\s*\d{1,2}\s*)?\+?\s*years/g)].map(m=>+m[1]),need=ys.length?Math.max(...ys):null;
+const y=need?Math.min(1,S.yrs/need):.85,l=LEAD.test(t)&&S.dr!=="1"?.6:1;let sc=100*(.65*cov+.175*y+.175*l);
+const cf=words>=250?"high":words>=80?"medium":"low";if(cf==="low")sc=.5*sc+.5*55;
+return{ats:Math.round(sc),conf:cf,miss:[...jt].filter(k=>!rt.has(k)).sort((a,b)=>LEX.find(x=>x[0]===b)[2]-LEX.find(x=>x[0]===a)[2]).slice(0,5).join("; ")}}
+const sal=t=>{const m=String(t||"").replace(/<[^>]+>/g," ").match(/\$\s?(\d{2,3}(?:,\d{3})+|\d{2,3}(?:\.\d+)?\s?[kK])\s*(?:-|–|—|to)\s*\$?\s?(\d{2,3}(?:,\d{3})+|\d{2,3}(?:\.\d+)?\s?[kK])/);if(!m)return"";
+const a=v=>{v=v.replace(/,/g,"").trim().toLowerCase();return v.endsWith("k")?parseFloat(v)*1e3:parseFloat(v)},lo=a(m[1]),hi=a(m[2]);return lo<3e4||hi<lo?"":"$"+lo.toLocaleString("en-US")+"–$"+hi.toLocaleString("en-US")};
+function fnFit(r){const b=(r.text||"").slice(0,1500);for(const k in FUNCS)if(FUNCS[k].test(r.title))return[k,FIT[k]];for(const k in FUNCS)if(FUNCS[k].test(b))return[k,Math.round(.6*FIT[k]*100)/100];return["other",.2]}
+function score(r,rt,exr){const[f,fs]=r.text||!r.fn?fnFit(r):[r.fn,r.fpts!=null?r.fpts:(FIT[r.fn]??.2)],m=mode(r),ind=r.industry||(Object.keys(INFER).find(k=>INFER[k].test(r.text||""))||"unknown");
+const n=r.employees?+r.employees:null,a=r.text?ats(r,f,rt):(r.ats!=null?{ats:r.ats,conf:r.conf||"imported",miss:r.miss||""}:{ats:null,conf:"n/a",miss:""});
+const rp=rem(m,r.location||""),sp=siz(n),ip=S.af[ind]??S.af.default,w=S.w,tw=w.r+w.s+w.i+w.f+w.n||1;
+const ov=Math.round(100*(w.r*rp+w.s*sp+w.i*ip+w.f*((a.ats??50)/100)+w.n*fs)/tw);
+const age=r.posted?Math.floor((Date.now()-new Date(r.posted+"T12:00:00"))/864e5):null;
+return{...r,fn:f,fp:Math.round(fs*100),level:r.level||lvl(r.title),mode:m,industry:ind,n,overall:ov,ats:a.ats,conf:a.conf,miss:a.miss,rp:Math.round(rp*100),sp:Math.round(sp*100),ip:Math.round(ip*100),age,sal:r.salary||sal(r.text)||"not listed",hide:exr.some(x=>x.test(r.company))}}
+const COLS=[["overall","Score"],["ats","Resume match"],["title","Title"],["company","Company"],["sal","Salary"],["level","Level"],["fn","Function"],["mode","Mode"],["n","Employees"],["industry","Industry"],["posted","Posted"],["rp","Remote"],["sp","Size"],["ip","Industry pts"],["fp","Function pts"],["miss","Keywords to add if true"]];
+const cls=v=>v>=70?"hi":v>=50?"md":"lo";
+function render(){const rt=terms(S.rs.toLowerCase()),exr=S.ex.split("\n").map(x=>x.trim()).filter(Boolean).map(x=>{try{return new RegExp(x,"i")}catch(e){return/^$/}});
+const q=$("q").value.toLowerCase(),fm=$("fm").value;
+let rows=R.map(r=>score(r,rt,exr)).filter(r=>!r.hide&&(!fm||r.mode===fm)&&(!S.age||r.age==null||r.age<=S.age)&&(!q||(r.title+" "+r.company+" "+r.industry).toLowerCase().includes(q)));
+rows.sort((a,b)=>{const x=a[sortK]??-1,y=b[sortK]??-1;return(typeof x==="string"?x.localeCompare(y):x-y)*sortD});
+$("hd").innerHTML=COLS.map(([k,l])=>`<th data-k="${k}" ${k===sortK?`aria-sort="${sortD<0?"descending":"ascending"}"`:""} tabindex="0">${l}${k===sortK?(sortD<0?" ↓":" ↑"):""}</th>`).join("");
+$("tb").innerHTML=rows.map(r=>{const u=/^https?:\/\//.test(r.url||""),c=cls(r.overall);return`<tr><td><div class="sc ${c}">${r.overall}<span class="m"><i style="width:${r.overall}%;background:currentColor"></i></span></div></td>
+<td class="n">${r.ats==null?"–":`<b class="${cls(r.ats)}">${r.ats}</b> <span class="cf">${esc(r.conf)}</span>`}</td>
+<td>${u?`<a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.title)}</a>`:esc(r.title)}</td><td>${esc(r.company)}</td><td class="n">${esc(r.sal)}</td><td>${esc(r.level)}</td><td>${esc(r.fn)}</td><td>${esc(r.mode)}</td>
+<td class="n">${r.n?r.n.toLocaleString("en-US"):"unknown"}</td><td>${esc(r.industry)}</td><td class="n">${esc(r.posted||"date unknown")}</td><td class="n">${r.rp}</td><td class="n">${r.sp}</td><td class="n">${r.ip}</td><td class="n">${r.fp}</td><td class="kw">${esc(r.miss)}</td></tr>`}).join("");
+$("em").hidden=rows.length>0;render.rows=rows}
+function csvParse(t){const o=[];let row=[],f="",q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i++}else q=false}else f+=c}else if(c==='"')q=true;else if(c===","){row.push(f);f=""}else if(c==="\n"||c==="\r"){if(c==="\r"&&t[i+1]==="\n")i++;row.push(f);f="";if(row.length>1||row[0])o.push(row);row=[]}else f+=c}
+if(f||row.length){row.push(f);o.push(row)}return o}
+function fromCsv(t){const [h,...b]=csvParse(t),ix=k=>h.indexOf(k);if(ix("title")<0||ix("url")<0)throw new Error("This doesn’t look like the agent’s CSV: it needs title and url columns.");
+const g=(r,k)=>ix(k)<0?"":r[ix(k)];return b.map(r=>({title:g(r,"title"),company:g(r,"company"),url:g(r,"url"),location:g(r,"location"),posted:/^\d{4}-/.test(g(r,"posted"))?g(r,"posted"):"",employees:+g(r,"employees")||null,industry:g(r,"industry")==="unknown"?"":g(r,"industry"),
+salary:g(r,"salary")==="not listed"?"":g(r,"salary"),mode:g(r,"mode"),fn:g(r,"function"),level:g(r,"level"),ats:g(r,"ats_match")===""?null:+g(r,"ats_match"),conf:g(r,"ats_confidence"),miss:g(r,"missing_keywords"),fpts:g(r,"function_pts")===""?null:+g(r,"function_pts")}))}
+function fillSettings(){const w=S.w;$("wr").value=w.r;$("ws").value=w.s;$("wi").value=w.i;$("wf").value=w.f;$("wn").value=w.n;$("sp").value=S.sp;$("age").value=S.age;$("yrs").value=S.yrs;$("dr").value=S.dr;$("bd").value=S.bd;$("tm").value=S.tm;$("az1").value=S.az1;$("az2").value=S.az2;$("ex").value=S.ex;$("af").value=JSON.stringify(S.af);$("rs").value=S.rs;
+$("ind").innerHTML=Object.keys(S.af).filter(k=>k!=="default").map(k=>`<option value="${esc(k)}">`).join("")}
+$("apply").onclick=()=>{try{S={w:{r:+$("wr").value||0,s:+$("ws").value||0,i:+$("wi").value||0,f:+$("wf").value||0,n:+$("wn").value||0},sp:$("sp").value,age:+$("age").value||0,yrs:+$("yrs").value||1,dr:$("dr").value,bd:$("bd").value,tm:$("tm").value,az1:$("az1").value.trim(),az2:$("az2").value.trim(),ex:$("ex").value,af:JSON.parse($("af").value),rs:$("rs").value};sv("jmb_s",S);fillSettings();render()}catch(e){alert("Industry scores must be valid JSON, for example {\"default\": 0.5}.")}};
+$("reset").onclick=()=>{S=JSON.parse(JSON.stringify(DEF));sv("jmb_s",S);fillSettings();render()};
+$("add").onclick=()=>{$("post").open=true;$("t").focus()};
+$("save").onclick=()=>{if(!$("t").value.trim()||!$("c").value.trim()){$("msg").textContent="Enter a job title and company.";return}
+R.unshift({title:$("t").value.trim(),company:$("c").value.trim(),url:$("u").value.trim(),location:$("l").value.trim(),posted:$("d").value,employees:+$("e").value||null,industry:$("i").value.trim(),salary:$("s").value.trim(),mode:$("m").value,text:$("x").value});
+sv("jmb_r",R);["t","c","u","l","d","e","i","s","x"].forEach(i=>$(i).value="");$("msg").textContent="Added.";render()};
+$("csv").onclick=()=>$("file").click();
+$("file").onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const add=fromCsv(rd.result),seen=new Set(R.map(r=>r.url));R=add.filter(r=>!seen.has(r.url)).concat(R);sv("jmb_r",R);render()}catch(x){alert(x.message)}};rd.readAsText(f);e.target.value=""};
+$("exp").onclick=()=>{const rows=render.rows||[],h=["overall","ats","title","company","sal","level","mode","n","industry","posted","rp","sp","ip","fn","fp","miss","url"],q=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
+const t=[h.join(",")].concat(rows.map(r=>h.map(k=>q(r[k])).join(","))).join("\n"),a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));a.download="job-matches.csv";a.click()};
+$("hd").onclick=e=>{const k=e.target.dataset?.k;if(!k)return;sortD=k===sortK?-sortD:(["title","company","level","fn","mode","industry","sal"].includes(k)?1:-1);sortK=k;render()};
+$("hd").onkeydown=e=>{if(e.key==="Enter")e.target.click()};
+const LEVEL=/\b(senior manager|sr\.? manager|associate director|director|manager|head of)\b/i,EXC=/assistant|store manager|account manager|sales manager|product manager|engineering manager|software|district manager|territory|nurse|intern\b|vice president|\bvp\b|chief|recruit/i,NONUS=/\b(canada|uk|united kingdom|india|germany|france|ireland|australia|singapore|emea|apac|mexico|brazil)\b/i;
+const getJ=async u=>{const r=await fetch(u);if(!r.ok)throw new Error("HTTP "+r.status);return r.json()},td=v=>{if(!v)return"";const d=new Date(v);return isNaN(d)?"":d.toISOString().slice(0,10)},
+fm$=(lo,hi,e)=>{lo=+lo;hi=+hi;return lo>=3e4&&hi>=lo?"$"+Math.round(lo).toLocaleString("en-US")+"–$"+Math.round(hi).toLocaleString("en-US")+(e?" (est.)":""):""};
+const SRC={greenhouse:async(t,n)=>(await getJ(`https://boards-api.greenhouse.io/v1/boards/${t}/jobs?content=true`)).jobs.map(j=>({title:j.title,company:n,location:(j.location||{}).name||"",url:j.absolute_url,posted:td(j.first_published||j.updated_at),text:j.content||"",salary:(j.pay_input_ranges||[]).map(r=>fm$(r.min_cents/100,r.max_cents/100)).find(Boolean)||""})),
+lever:async(t,n)=>(await getJ(`https://api.lever.co/v0/postings/${t}?mode=json`)).map(j=>({title:j.text,company:n,location:(j.categories||{}).location||"",url:j.hostedUrl,posted:td(j.createdAt),text:j.descriptionPlain||"",mode:(j.workplaceType||"").replace("on-site","onsite"),salary:fm$((j.salaryRange||{}).min,(j.salaryRange||{}).max)})),
+ashby:async(t,n)=>(await getJ(`https://api.ashbyhq.com/posting-api/job-board/${t}`)).jobs.map(j=>({title:j.title,company:n,location:j.location||"",url:j.jobUrl,posted:td(j.publishedAt),text:j.descriptionPlain||"",mode:j.isRemote?"remote":"",salary:(j.compensation||{}).compensationTierSummary||""}))};
+const remotive=async q=>(await getJ("https://remotive.com/api/remote-jobs?search="+encodeURIComponent(q))).jobs.map(j=>({title:j.title,company:j.company_name,location:j.candidate_required_location||"",url:j.url,posted:td(j.publication_date),text:j.description||"",mode:"remote"}));
+const adzuna=async q=>(await getJ(`https://api.adzuna.com/v1/api/jobs/us/search/1?app_id=${encodeURIComponent(S.az1)}&app_key=${encodeURIComponent(S.az2)}&what=${encodeURIComponent(q)}&max_days_old=${S.age||30}&results_per_page=50&sort_by=date`)).results.map(j=>({title:j.title,company:(j.company||{}).display_name||"",location:(j.location||{}).display_name||"",url:j.redirect_url,posted:td(j.created),text:j.description||"",salary:fm$(j.salary_min,j.salary_max,String(j.salary_is_predicted)==="1")}));
+async function runAgent(){const st=$("rs2"),tasks=[],lines=x=>x.split("\n").map(s=>s.trim()).filter(Boolean);let got=[],ok=0,bad=[];
+lines(S.bd).forEach(l=>{const[k,t,...n]=l.split(",").map(s=>s.trim());if(SRC[k]&&t)tasks.push([k+" "+t,()=>SRC[k](t,n.join(", ")||t)])});
+lines(S.tm).forEach(q=>{tasks.push(["remotive "+q,()=>remotive(q)]);if(S.az1&&S.az2)tasks.push(["adzuna "+q,()=>adzuna(q)])});
+if(!tasks.length){st.textContent="Add search terms or company boards in the settings first.";return}
+st.textContent=`Running ${tasks.length} searches…`;
+await Promise.all(tasks.map(async([l,f])=>{try{got.push(...await f());ok++}catch(e){bad.push(l)}}));
+if(!ok){st.textContent="No search could connect. If you’re viewing this hosted page, download the copy and open it from your computer; job sites block requests from here.";return}
+const cut=S.age?Date.now()-S.age*864e5:0,seen=new Set(R.map(r=>r.url)),add=[];
+got.forEach(p=>{if(!p.url||seen.has(p.url)||!LEVEL.test(p.title)||EXC.test(p.title))return;
+if(NONUS.test(p.location)&&!/united states|\bus\b|usa/i.test(p.location))return;if(p.posted&&cut&&new Date(p.posted)<cut)return;
+seen.add(p.url);p.text=String(p.text).replace(/<[^>]+>/g," ").slice(0,6000);add.push(p)});
+R=add.concat(R);sv("jmb_r",R);render();
+st.textContent=`Added ${add.length} new postings from ${ok} of ${tasks.length} searches`+(bad.length?`; ${bad.length} failed or blocked.`:".")+(S.az1&&S.az2?"":" Adzuna skipped (no keys).")}
+$("runb").onclick=runAgent;
+$("q").oninput=render;$("fm").onchange=render;
+function fromObjs(L){const g=(r,k)=>r[k]==null?"":String(r[k]);return L.map(r=>({title:g(r,"title"),company:g(r,"company"),url:g(r,"url"),location:g(r,"location"),posted:/^\d{4}-/.test(g(r,"posted"))?g(r,"posted"):"",employees:+g(r,"employees")||null,industry:g(r,"industry")==="unknown"?"":g(r,"industry"),salary:g(r,"salary")==="not listed"?"":g(r,"salary"),mode:g(r,"mode"),fn:g(r,"function"),level:g(r,"level"),ats:g(r,"ats_match")===""?null:+g(r,"ats_match"),conf:g(r,"ats_confidence"),miss:g(r,"missing_keywords"),fpts:g(r,"function_pts")===""?null:+g(r,"function_pts")}))}
+const rb=$("run"),H={"X-Requested-With":"board"};
+rb.disabled=true;rb.title="Available when the board is started with: python job_agent.py --serve";
+fetch("/api/ping",{headers:H}).then(r=>{if(r.ok){rb.disabled=false;rb.title="Run job_agent.py and load the results"}}).catch(()=>{});
+rb.onclick=async()=>{rb.disabled=true;const old=rb.textContent;rb.textContent="Running agent…";$("rmsg").textContent="This can take a minute or two.";
+try{const r=await fetch("/api/run",{method:"POST",headers:H});if(!r.ok)throw new Error(await r.text()||r.status);const add=fromObjs(await r.json());R=add.concat(R.filter(x=>!add.some(a=>a.url===x.url)));sv("jmb_r",R);render();$("rmsg").textContent=add.length+" postings loaded at "+new Date().toLocaleTimeString()+"."}
+catch(e){$("rmsg").textContent="";alert("The agent run failed: "+e.message)}rb.textContent=old;rb.disabled=false};
+fillSettings();render();
+</script></body></html>

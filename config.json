@@ -1,0 +1,54 @@
+{
+  "max_age_days": 30,
+  "size_preference": "small",
+  "unknown_size_score": 0.7,
+  "resume_path": "resume.txt",
+  "resume_years": 18,
+  "direct_reports": false,
+  "weights": {
+    "remote": 30,
+    "size": 25,
+    "industry": 20,
+    "fit": 25,
+    "function": 15
+  },
+  "industry_affinity": {
+    "default": 0.5,
+    "politics & political consulting": 1.0,
+    "airlines & travel": 0.8,
+    "logistics & supply chain": 0.7,
+    "enterprise software & saas": 0.7,
+    "retail & e-commerce": 0.6,
+    "financial services": 0.5,
+    "healthcare": 0.4,
+    "staffing & recruiting": 0.1
+  },
+  "search_terms": [
+    "director analytics",
+    "senior manager analytics",
+    "business operations manager",
+    "director business operations",
+    "program manager",
+    "director program management",
+    "FP&A manager",
+    "data director",
+    "analytics director political",
+    "campaign data director",
+    "revenue operations",
+    "supply chain analytics manager"
+  ],
+  "greenhouse": {},
+  "lever": {},
+  "ashby": {},
+  "exclude_companies": [
+    "home\\s?depot|\\bthd\\b|hd supply",
+    "coca[- ]cola",
+    "delta air\\s?lines|delta airlines",
+    "\\bups\\b|united parcel service",
+    "equifax",
+    "southern company"
+  ],
+  "min_salary": 0,
+  "max_salary": 0,
+  "include_unlisted_salary": true
+}

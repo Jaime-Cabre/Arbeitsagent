@@ -1,0 +1,12 @@
+company,industry,approx_employees,approx_revenue_usd_m,note
+Agile Six,government IT consulting,100,,~90-110 per several company-profile sites
+Octave,enterprise software & saas,7200,,company profile says ~7200 worldwide; large despite remote BI team
+Catalist,politics & political consulting,100,,~72-126 per profile sites; LinkedIn 51-200
+America Votes,politics & political consulting,75,,rough estimate - unverified
+Battleground Alliance,politics & political consulting,,,size unknown (no data found); gets neutral size score
+Revolution Field Strategies,politics & political consulting,,,size unknown (no data found); gets neutral size score
+Equinix,technology infrastructure,13000,,rounded from general knowledge
+Emory University,higher education,30000,,rounded from general knowledge; includes health system
+CVS Health,healthcare,300000,,rounded from general knowledge
+Truist,financial services,38000,,rounded from general knowledge
+Example Revenue-Only Co,default,,40,example row: $40M revenue -> ~160 employees; delete me

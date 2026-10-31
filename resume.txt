@@ -1,0 +1,55 @@
+Analytics & Program Management Leader — Operations, Supply Chain, Revenue and Sales Analytics
+PROFESSIONAL SUMMARY
+Analytics and program management leader with 18+ years turning complex data into decisions for senior and C-suite leadership across airline, supply chain, enterprise software and market research. Builds the models, dashboards and processes that scale, including Delta’s first Profit Analysis Tracker and Tableau dashboards used across Corporate Sales and leads change management, training and cross-functional delivery. Hands-on team lead across multiple roles, from a global sampling team of up to seven to cross-functional dashboard programs and working groups. Strong in SQL (BigQuery), Tableau, Python, dbt and statistical analysis. M.B.A., Emory Goizueta. Fluent in English, German and Spanish.
+CORE COMPETENCIES
+Analytics: Business Analytics, Data Modeling, Statistical Analysis, KPI and Performance Reporting, Dashboard Development, Revenue and Sales Analytics, Supply Chain Analytics, Executive Reporting
+Operations and Program Management: Program Management, Project Management, Change Management, Process Improvement and Automation, Stakeholder Management, Team Leadership, Cross-Functional Leadership, Mentoring, Training and Enablement, Customer Success Operations
+PROFESSIONAL EXPERIENCE
+The Home Depot | Atlanta, GA
+Senior Business Operations Analyst | February 2026 – Present
+Built an AI-assisted interactive dashboard modeling Florida supply chain constraints, incorporating forward-looking data model estimates for leadership decision-making
+Wrote advanced BigQuery SQL to identify supply chain gaps and improve on-time delivery
+Revenue Analytics | Atlanta, GA
+Senior Customer Success Operations Manager | December 2024 – March 2025
+Resolved ticket discrepancies for dozens of corporate users weekly using analytics, Confluence and Jira; loaded data daily into the back-end system using DBeaver, AWS and S3
+Democratic Party of Georgia | Atlanta, GA
+Data & Analytics Deputy Director | September 2024 – November 2024
+Administered NGP VAN (user access, campaign and voter reports, statewide event templates) and built dbt and GitHub data models for weekly campaign activity reporting
+Delta Air Lines | Atlanta, GA
+Program Manager – Corporate Intelligence, Global Sales | April 2022 – May 2024
+Led development of Delta’s first Profit Analysis Tracker model and Tableau dashboard, showing incremental revenue and profit contract-over-contract by geography and account
+Directed design, rollout and change management of multiple Tableau dashboards adopted across all of Corporate Sales, serving hundreds of users with diverse technical backgrounds
+Re-categorized the competitive status of 1,400+ corporate accounts with Revenue Management, using statistical analysis of network coverage to streamline negotiations
+Trained 150+ field sellers and sales personnel, in person and by video, on Fare & Share, travel policy consultations, supporting tools and new dashboards
+Led meetings with sellers and Corporate Travel Managers to move accounts toward travel policies with a higher premium-cabin mix, adding tens of millions of dollars in annual revenue; oversaw the processes and tools that guide Account Executives in winning policy changes
+Program Manager – In-Flight Services Health, Safety & Security | February 2019 – March 2022
+Produced analyses, reports and presentations for senior leadership that drove changes to turbulence injury mitigation policy, carry-on bag initiatives and HSS team growth
+Led comparative data analysis that resulted in the implementation of Z-block on the A321, A330-200 and A350 fleets
+Delivered weekly and ad hoc statistical injury reports at the C-suite level and categorized all Flight Attendant injuries daily, ensuring the accuracy of Monthly Performance Reviews
+Automated creation and tracking of Personal Safety Conversations with an interactive dashboard that streamlined the process and supported Flight Attendants recovering from injury
+Emory University, Goizueta Business School — MBA Career Management Center | Atlanta, GA
+Lead Analyst – Data & Communications | October 2016 – February 2019
+Trained groups of 50+ students across six sessions on MBA-specific software and career website
+Administered programs and applications for timeliness and compliance, automating new-student onboarding to reduce staff hours
+Maintained weekly and monthly student offer and placement reports that appeared in national rankings publications; automated report creation with Excel formulas, saving days of staff time
+Oracle | Rocklin, CA
+Senior Business Analyst – Oracle Store | May 2015 – May 2016
+Coordinated with 3+ groups globally, inside and outside Oracle, on agreements and translations published across all Oracle Store websites
+Updated product offering attributes daily and managed monthly translation updates in 15 languages for products, help topics and other content
+Project Manager III – M&A Product Release Group | August 2012 – April 2015
+Led weekly Sustaining Report meetings and trained groups of five or more on the Item Validation Tool, reducing tens of thousands of errors to fewer than one hundred in Oracle’s primary application for integrating Hardware, Software and Cloud products
+Reported monthly on bug activity, reducing open bugs from dozens of unresolved to fewer than five unactionable ones
+Research Now, Inc. | San Francisco, CA
+Senior Business Analyst | February 2008 – July 2012
+Served as team lead for a global sampling team of seven members, assigning projects and tracking delivery
+Trained all junior members in business operations, including SQL and ASP.NET
+EDUCATION
+M.B.A., Evening Program — Emory University, Goizueta Business School | May 2020
+Teaching Assistant, Data Decision Analysis (Fall 2018); Leadership Coaching Fellow (Fall 2018)
+B.S.S., Atmospheric, Oceanic and Space Sciences — University of Michigan | April 2001
+TECHNICAL SKILLS
+Data and Analytics: SQL (Google BigQuery, Teradata, DB2, DBeaver), Python, R, SAS, dbt, Tableau, Looker, Excel, Adobe Analytics (Omniture), Qualtrics
+Platforms and Tools: AWS S3, Git/GitHub, Jira, Confluence, NGP VAN, Microsoft Office
+ADDITIONAL INFORMATION
+Languages: English, German, Spanish (fluent); French (advanced); Italian, Portuguese (conversational)
+Work authorization: US and EU citizenship
