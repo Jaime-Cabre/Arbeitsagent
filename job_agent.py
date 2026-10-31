@@ -91,7 +91,7 @@ def ats_match(p, fn):
     tot = sum(LEX[k][1] for k in jt)
     cov = sum(LEX[k][1] for k in jt & RES_TERMS) / tot if tot else 0.6
     yrs = [int(a) for a in re.findall(r"(\d{1,2})\s*\+?\s*(?:-\s*\d{1,2}\s*)?\+?\s*years", text)]
-    need = max(yrs) if yrs else None
+    need = max([y for y in yrs if y > 0], default=None)   # ignore "0 years" / "0-2 years" (was a divide-by-zero)
     ys = 0.85 if need is None else min(1.0, CFG.get("resume_years", 18) / need)
     ls = 0.6 if LEAD_ASK.search(text) and not CFG.get("direct_reports") else 1.0
     score = 100 * (0.65 * cov + 0.175 * ys + 0.175 * ls)   # function fit is now its own score (see function_fit)
@@ -270,7 +270,9 @@ def rank(jobs, new_only=False):
         mode, ind = work_mode(p), industry_of(p, row)
         r, s = remote_score(mode, p["location"]), size_score(n)
         i = CFG["industry_affinity"].get(ind, CFG["industry_affinity"]["default"])
-        ats, conf, miss = ats_match(p, fn) if RESUME else (None, "n/a", [])
+        try: ats, conf, miss = ats_match(p, fn) if RESUME else (None, "n/a", [])
+        except Exception as e:   # never let one odd posting stop the whole run
+            print(f"  could not score {p.get('title')!r}: {e}", file=sys.stderr); ats, conf, miss = None, "error", []
         score = round(100 * (w["remote"] * r + w["size"] * s + w["industry"] * i + w["fit"] * ((ats or 0) / 100) + w["function"] * fs) / sum(w.values()))
         out.append(dict(score=score, location=p["location"], ats_match=ats if ats is not None else "", ats_confidence=conf, missing_keywords="; ".join(miss), title=p["title"], company=p["company"], level=level(p["title"]), function=fn, function_pts=round(fs, 2), mode=mode,
                         employees=n or "unknown", industry=ind, posted=p["posted"].date().isoformat() if p["posted"] else "date unknown",
