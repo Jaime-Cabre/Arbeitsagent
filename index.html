@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ops, Program &amp; Analytics Roles</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#f3f5f1;--sf:#fff;--ink:#1b2620;--mut:#617068;--ln:#d9dfd8;--ac:#1f5f4a;--ac2:#e3efe9;--hi:#1d7a4c;--md:#a56a0c;--lo:#a23a3a;--bar:#dfe7e0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121915;--sf:#1a231e;--ink:#e8efea;--mut:#9bab9f;--ln:#2d3a32;--ac:#6fcfa6;--ac2:#22372d;--hi:#58c08a;--md:#e0a94a;--lo:#e07b7b;--bar:#2d3a32;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121915;--sf:#1a231e;--ink:#e8efea;--mut:#9bab9f;--ln:#2d3a32;--ac:#6fcfa6;--ac2:#22372d;--hi:#58c08a;--md:#e0a94a;--lo:#e07b7b;--bar:#2d3a32;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 "Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:1px solid var(--ln);background:var(--sf)}.in{max-width:1320px;margin:0 auto;padding:0 16px}
+header .in{display:flex;justify-content:space-between;align-items:center;height:54px;gap:12px}.brand{font-weight:700;font-size:1.1rem}.brand span{color:var(--ac)}
+h1{font-size:1.6rem;margin:22px 0 4px;letter-spacing:-.01em}.sub{color:var(--mut);margin:0 0 14px}
+.f{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+select,input,button{font:inherit;color:var(--ink);background:var(--sf);border:1px solid var(--ln);border-radius:6px;padding:7px 10px}button{cursor:pointer;font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid var(--ln);border-radius:999px;background:var(--sf);cursor:pointer;font-weight:600}
+.chip:has(input:checked){background:var(--ac2);border-color:var(--ac);color:var(--ac)}.chip input{accent-color:var(--ac);margin:0;padding:0}
+select:focus-visible,input:focus-visible,button:focus-visible,a:focus-visible,.chip:focus-within{outline:2px solid var(--ac);outline-offset:2px}
+.tw{overflow-x:auto;background:var(--sf);border:1px solid var(--ln);border-radius:8px}table{border-collapse:collapse;width:100%;min-width:1280px}
+th,td{padding:10px 11px;border-bottom:1px solid var(--ln);text-align:left;vertical-align:top}th{font-size:.82rem;color:var(--mut);font-weight:600;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}tbody tr:hover{background:var(--bg)}
+td.r a{font-weight:700;color:var(--ink);text-decoration:none}td.r a:hover{color:var(--ac);text-decoration:underline}
+.sc{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.15rem;min-width:90px}.m{flex:1;height:6px;background:var(--bar);border-radius:3px;overflow:hidden;min-width:30px}.m i{display:block;height:100%;background:currentColor}
+.hi{color:var(--hi)}.md{color:var(--md)}.lo{color:var(--lo)}.c{color:var(--mut);font-size:.85rem}.n{white-space:nowrap;font-variant-numeric:tabular-nums}
+.t{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.8rem;font-weight:700;background:var(--ac2);color:var(--ac)}
+.pg{display:flex;gap:10px;align-items:center;justify-content:center;margin:14px 0}.em{padding:34px 16px;text-align:center;color:var(--mut)}
+footer{color:var(--mut);font-size:.82rem;padding:8px 0 40px;max-width:95ch}
+</style></head><body>
+<header><div class="in"><div class="brand">Ops<span>Roles</span></div><div class="c" id="upd"></div></div></header>
+<div class="in"><h1>Operations, program and analytics jobs</h1><p class="sub" id="cnt">Loading…</p>
+<div class="f"><select id="ar" aria-label="Role area"><option value="">Any role area</option><option value="business operations">Business operations</option><option value="project/program">Program &amp; project management</option><option value="analytics">Analytics</option><option value="finance">Finance</option><option value="other">Other</option></select>
+<select id="lv" aria-label="Level"><option value="">Any level</option><option>Manager</option><option>Senior Manager</option><option>Director</option></select>
+<label class="chip"><input type="checkbox" class="md" value="remote">Remote</label><label class="chip"><input type="checkbox" class="md" value="hybrid">Hybrid</label><label class="chip"><input type="checkbox" class="md" value="onsite">Office</label>
+<label class="chip"><input type="checkbox" id="hs">Has salary listed</label><select id="ms" aria-label="Minimum salary"><option value="0">Min salary</option></select><select id="mx" aria-label="Maximum salary"><option value="0">Max salary</option></select></div>
+<div class="f"><input type="search" id="q" placeholder="Search role, company or industry" aria-label="Search" style="flex:1;min-width:200px"><input type="search" id="lc" placeholder="Location" aria-label="Location">
+<select id="so" aria-label="Sort"><option value="score">Best score first</option><option value="new">Newest first</option><option value="sal">Highest salary first</option></select></div>
+<div class="tw"><table><thead><tr><th>Score</th><th>Role</th><th>Company</th><th>Location</th><th>Area</th><th>Level</th><th>Mode</th><th>Salary</th><th>Resume match</th><th>Remote</th><th>Size</th><th>Industry</th><th>Function</th><th>Posted</th></tr></thead><tbody id="tb"></tbody></table><div class="em" id="em" hidden></div></div>
+<div class="pg"><button id="pv">Previous</button><span id="pn" class="c"></span><button id="nx">Next</button></div>
+<footer id="ft"></footer></div>
+<script>
+const $=id=>document.getElementById(id),PER=25;let J=[],M={},page=0;
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const lo=s=>{const m=String(s||"").match(/\$\s?([\d,]+(?:\.\d+)?)\s?(k)?/i);if(!m)return 0;const v=parseFloat(m[1].replace(/,/g,""))*(m[2]?1e3:1);return v>=3e4?v:0};
+const cls=v=>v>=70?"hi":v>=50?"md":"lo",pc=v=>v===""||v==null?"–":Math.round(v*100);
+[["20k+",2e4],["40k+",4e4],["60k+",6e4],["80k+",8e4],["100k+",1e5],["125k+",125e3],["150k+",15e4],["175k+",175e3],["200k+",2e5],["250k+",25e4]].forEach(([l,v])=>{$("ms").insertAdjacentHTML("beforeend",`<option value="${v}">$${l}</option>`);$("mx").insertAdjacentHTML("beforeend",`<option value="${v}">Up to $${l.replace("+","")}</option>`)});
+const ago=p=>/^\d{4}-/.test(p)?Math.max(0,Math.floor((Date.now()-new Date(p+"T12:00:00"))/864e5)):null;
+const AREA={"business operations":"Business operations","project/program":"Program & project","analytics":"Analytics",finance:"Finance",other:"Other"};
+function rows(){const md=[...document.querySelectorAll(".md:checked")].map(x=>x.value),ms=+$("ms").value,mx=+$("mx").value,q=$("q").value.toLowerCase(),lc=$("lc").value.toLowerCase();
+const L=J.map(r=>({...r,lo:lo(r.salary),ag:ago(r.posted)})).filter(r=>(!$("ar").value||r.function===$("ar").value)&&(!$("lv").value||r.level===$("lv").value)&&(!md.length||md.includes(r.mode))&&(!$("hs").checked||r.lo)&&r.lo>=ms&&(!mx||!r.lo||r.lo<=mx)&&(!q||(r.title+" "+r.company+" "+r.industry).toLowerCase().includes(q))&&(!lc||(r.location||"").toLowerCase().includes(lc)));
+const so=$("so").value;L.sort((a,b)=>so==="new"?(a.ag??9999)-(b.ag??9999)||b.score-a.score:so==="sal"?b.lo-a.lo:b.score-a.score);return L}
+function render(){const L=rows(),pages=Math.max(1,Math.ceil(L.length/PER));page=Math.min(page,pages-1);
+$("cnt").textContent=`${L.length} ${L.length===1?"role":"roles"}${J.length!==L.length?` shown of ${J.length}`:""}`;
+$("tb").innerHTML=L.slice(page*PER,page*PER+PER).map(r=>{const u=/^https?:\/\//.test(r.url||"");return`<tr><td><div class="sc ${cls(r.score)}">${r.score}<span class="m"><i style="width:${r.score}%"></i></span></div></td>
+<td class="r">${u?`<a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.title)}</a>`:esc(r.title)}${r.missing_keywords?`<div class="c">Add if true: ${esc(r.missing_keywords)}</div>`:""}</td>
+<td>${esc(r.company)}</td><td class="c">${esc(r.location)}</td><td><span class="t">${esc(AREA[r.function]||r.function)}</span></td><td>${esc(r.level)}</td><td>${esc(r.mode)}</td><td class="n">${r.salary&&r.salary!=="not listed"?esc(r.salary):""}</td>
+<td class="n">${r.ats_match===""?"–":`<b class="${cls(r.ats_match)}">${r.ats_match}</b> <span class="c">${esc(r.ats_confidence)}</span>`}</td><td class="n">${pc(r.remote_pts)}</td><td class="n">${pc(r.size_pts)}${r.employees!=="unknown"?` <span class="c">${(+r.employees).toLocaleString("en-US")}</span>`:""}</td><td class="n">${pc(r.industry_pts)} <span class="c">${esc(r.industry)}</span></td><td class="n">${pc(r.function_pts)}</td>
+<td class="n c">${r.ag==null?"–":r.ag===0?"Today":r.ag+"d"}</td></tr>`}).join("");
+const e=$("em");e.hidden=L.length>0;e.textContent=J.length?"No roles match these filters.":"No roles yet. The first refresh has not run: open the repository’s Actions tab and run “Refresh jobs”.";
+$("pn").textContent=`Page ${page+1} of ${pages}`;$("pv").disabled=page===0;$("nx").disabled=page>=pages-1}
+document.querySelectorAll("select,.md,#hs").forEach(x=>x.onchange=()=>{page=0;render()});$("q").oninput=$("lc").oninput=()=>{page=0;render()};
+$("pv").onclick=()=>{page--;render();scrollTo(0,0)};$("nx").onclick=()=>{page++;render();scrollTo(0,0)};
+fetch("jobs.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{J=d.jobs||[];M=d.meta||{};
+$("upd").textContent=M.generated_at?"Updated "+new Date(M.generated_at).toLocaleString():"";const w=M.weights||{};
+$("ft").textContent=`Score combines remote status (${w.remote??"–"}), company size (${w.size??"–"}, ${M.size_preference==="small"?"smaller":"larger"} companies score higher), industry (${w.industry??"–"}), resume match (${w.fit??"–"}) and function fit (${w.function??"–"}), as relative weights. Resume match is a keyword check, not an employer’s actual screening software; “Add if true” lists posting keywords your resume lacks. Postings are from the last ${M.max_age_days||30} days.`;render()}).catch(()=>{$("cnt").textContent="Couldn’t load jobs.json. If you opened this file directly, serve the docs folder instead (python -m http.server in docs).";});
+</script></body></html>
