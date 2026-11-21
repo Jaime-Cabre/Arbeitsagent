@@ -1,0 +1,102 @@
+# Forbes Global 2000 (2026), ranks 1-100. One company per line: Name | alias; alias. An alias starting with = must match the whole company name.
+# A posting's company is removed if its name equals an entry or starts with it (so "Amazon Web Services" matches "Amazon"). Edit freely.
+JPMorgan Chase | jpmorgan; jp morgan; =chase; jpmorganchase
+Amazon | amazon web services; aws; whole foods
+Berkshire Hathaway | geico
+Alphabet | google; youtube; waymo; deepmind
+Saudi Aramco | saudi arabian oil
+ICBC | industrial and commercial bank of china
+Bank of America | bofa; merrill lynch; =merrill
+Microsoft | linkedin; github
+China Construction Bank
+Agricultural Bank of China
+Apple
+Bank of China
+HSBC Holdings | hsbc
+ExxonMobil | exxon mobil; exxon
+Samsung Electronics | samsung
+Meta Platforms | =meta; facebook
+Toyota Motor | toyota
+Citigroup | citibank; =citi
+Goldman Sachs Group | goldman sachs
+Wells Fargo
+Morgan Stanley
+PetroChina
+Walmart | sams club
+Royal Bank of Canada | rbc
+Santander | banco santander
+Ping An Insurance Group | ping an
+NVIDIA
+Shell Plc | =shell
+UnitedHealth Group | unitedhealthcare; unitedhealth; optum
+Mitsubishi UFJ Financial | mufg
+Taiwan Semiconductor | tsmc
+Allianz
+Tencent Holdings | tencent
+TD Bank Group | td bank; =td
+Chevron
+China Mobile
+BNP Paribas
+Verizon Communications | verizon
+AT&T
+TotalEnergies
+Alibaba Group | alibaba
+China Merchants Bank
+Johnson & Johnson | j&j; janssen
+BBVA | banco bilbao vizcaya argentaria
+Deutsche Telekom
+UBS
+China Life Insurance
+SK Hynix
+Sumitomo Mitsui Financial | smbc
+American Express | amex
+AXA Group | axa
+Oracle
+Broadcom
+SoftBank | softbank group
+Reliance Industries
+Walt Disney | disney
+LVMH | louis vuitton
+Bank of Communications
+Nestle
+Postal Savings Bank of China | psbc
+Siemens
+State Bank of India | =sbi
+Petrobras
+Comcast | nbcuniversal; xfinity
+Intesa Sanpaolo
+Procter & Gamble | p&g
+Mizuho Financial | mizuho
+RTX | raytheon; pratt & whitney; collins aerospace
+Home Depot
+HDFC Bank
+Contemporary Amperex Technology | catl
+Eli Lilly | lilly
+Zurich Insurance Group | zurich insurance
+Commonwealth Bank
+Hyundai Motor | hyundai
+Itau Unibanco | itau
+Roche Holding | roche; genentech
+IBM
+Chubb
+BMO | bank of montreal
+Credit Agricole
+Hon Hai Precision | foxconn
+Cisco Systems | cisco
+Sinopec
+CNOOC
+Volkswagen Group | volkswagen
+Costco Wholesale | costco
+Merck & Co | merck
+Micron Technology | micron
+PepsiCo | pepsi; frito lay
+Pfizer
+Bank of Nova Scotia | scotiabank
+Anheuser-Busch InBev | anheuser busch; ab inbev
+CITIC
+NTT
+Tesla
+Airbus
+UniCredit
+Canadian Imperial Bank | cibc; canadian imperial bank of commerce
+Mitsubishi Corporation | mitsubishi corp
