@@ -25,13 +25,17 @@ jobs:
         run: |
           git config user.name "job-board-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add docs/jobs.json
-          if git diff --staged --quiet; then echo "No changes to save"; exit 0; fi
-          git commit -m "Update jobs"
-          # If someone pushed to the repository while this run was working, pull their changes in first,
-          # keeping the freshly built jobs.json if the two collide, then push. Try a few times.
+          cp docs/jobs.json /tmp/jobs.json
+          # Start each attempt from the newest copy of the branch, put the fresh results on top, then push.
+          # This cannot hit a rebase conflict, and it retries if someone else pushes at the same moment.
           for i in 1 2 3 4 5; do
-            git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
-            echo "Push attempt $i failed; retrying"; git rebase --abort 2>/dev/null || true; sleep 6
+            git fetch origin "$GITHUB_REF_NAME"
+            git reset --hard "origin/$GITHUB_REF_NAME"
+            mkdir -p docs && cp /tmp/jobs.json docs/jobs.json
+            git add docs/jobs.json
+            if git diff --staged --quiet; then echo "No changes to save"; exit 0; fi
+            git commit -m "Update jobs"
+            if git push origin "HEAD:$GITHUB_REF_NAME"; then echo "Saved"; exit 0; fi
+            echo "Push attempt $i failed; retrying"; sleep 6
           done
-          exit 1
+          echo "Could not save after 5 attempts"; exit 1
